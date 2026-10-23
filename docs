@@ -1,0 +1,41 @@
+# Route Table Reference
+
+## 1. Public Route Table — VPC A
+
+**Name:** `ewb-rt-a-public`
+
+**Subnet association:** `ewb-a-public`
+
+| Destination | Target | Purpose |
+|---|---|---|
+| `10.10.0.0/16` | Local | Communication inside VPC A |
+| `0.0.0.0/0` | `ewb-igw-a` | Internet route |
+| `10.20.0.0/16` | `ewb-a-b-peer` | Route to VPC B |
+
+## 2. Private Route Table — VPC A
+
+**Name:** `ewb-rt-a-private`
+
+**Subnet association:** `ewb-a-private`
+
+| Destination | Target | Purpose |
+|---|---|---|
+| `10.10.0.0/16` | Local | Communication inside VPC A |
+| `10.20.0.0/16` | `ewb-a-b-peer` | Route to VPC B |
+
+No default Internet Gateway route is configured for this private subnet.
+
+## 3. Private Route Table — VPC B
+
+**Name:** `ewb-rt-b-private`
+
+**Subnet association:** `ewb-b-private`
+
+| Destination | Target | Purpose |
+|---|---|---|
+| `10.20.0.0/16` | Local | Communication inside VPC B |
+| `10.10.0.0/16` | `ewb-a-b-peer` | Route to VPC A |
+
+## Important
+
+VPC Peering does not automatically configure route tables. The correct routes must be added to the route tables used by the communicating subnets.
